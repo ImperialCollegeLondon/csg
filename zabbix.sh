@@ -1,4 +1,4 @@
-rpm -ivh http://repo.zabbix.com/zabbix/3.2/rhel/7/x86_64/zabbix-release-3.2-1.el7.noarch.rpm
+rpm -ivh http://repo.zabbix.com/zabbix/3.2/rhel/7/x86_64/zabbix-agent-3.2.4-2.el7.x86_64.rpm
 wget http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX-79EA5ED4
 rpm --import RPM-GPG-KEY-ZABBIX-79EA5ED4
 yum install zabbix-agent -y
