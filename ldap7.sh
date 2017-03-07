@@ -1,4 +1,5 @@
 #!/bin/bash
+echo For RHEL7 only!
 echo Installing LDAP and Kerberos clients
 yum install wget vim deltarpm git epel-release -y
 yum upgrade -y
