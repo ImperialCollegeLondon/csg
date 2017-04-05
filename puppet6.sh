@@ -4,6 +4,6 @@ yum install puppet-agent -y
 echo server=ee-puppet.ee.ic.ac.uk >> /etc/puppetlabs/puppet/puppet.conf
 /opt/puppetlabs/puppet/bin/puppet agent -t
 #systemctl enable puppet
-chkconfig enable puppet
+chkconfig puppet on
 #systemctl start puppet
 service puppet start
