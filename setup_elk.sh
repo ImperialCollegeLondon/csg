@@ -142,7 +142,7 @@ echo 'server {
 	sudo systemctl enable  nginx
 
 	read -p "Enter domain name: " -e domainName
-	sudo certbot certonly -a webroot --webroot-path=/usr/share/nginx/html -d $domainName -d www.$domainName
+	sudo certbot certonly -a webroot --webroot-path=/usr/share/nginx/html -d $domainName
 	sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 
 cat > /etc/nginx/conf.d/kibana.conf << EOF
