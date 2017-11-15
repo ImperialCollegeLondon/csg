@@ -20,9 +20,9 @@ sysctl -w net.ipv6.conf.default.disable_ipv6=1
 
 # Create Repo
 cat <<EOT >> /etc/yum.repos.d/elasticsearch.repo
-[elastic-5.x]
-name=Elastic repository for 5.x packages
-baseurl=https://artifacts.elastic.co/packages/5.x/yum
+[elasticsearch-6.x]
+name=Elasticsearch repository for 6.x packages
+baseurl=https://artifacts.elastic.co/packages/6.x/yum
 gpgcheck=1
 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
 enabled=1
@@ -35,7 +35,7 @@ yum upgrade -y
 yum install filebeat -y
 
 # Configure
-sed -i 's/hosts\: \[\"localhost\:9200\"\]/hosts\: \[\"ee-elk.ee.ic.ac.uk\:9200\"\]/g' /etc/filebeat/filebeat.yml
+sed -i 's/hosts\: \[\"#localhost\:5044\"\]/hosts\: \[\"ee-elk.ee.ic.ac.uk\:5400\"\]/g' /etc/filebeat/filebeat.yml
 #systemctl start filebeat
 
 # Enable Service
@@ -43,4 +43,3 @@ chkconfig filebeat on
 
 # Start Service
 service filebeat start
-
