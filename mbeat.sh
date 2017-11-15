@@ -12,7 +12,7 @@
 #EOT
 #yum upgrade -y
 yum install metricbeat -y
-sed -i 's/hosts\: \[\"localhost\:9200\"\]/hosts\: \[\"ee-elk.ee.ic.ac.uk\:9200\"\]/g' /etc/metricbeat/metricbeat.yml
+sed -i 's/hosts\: \[\"#localhost\:5044\"\]/hosts\: \[\"ee-elk.ee.ic.ac.uk\:5044\"\]/g' /etc/metricbeat/metricbeat.yml
 sed -i 's/period\: 10s/period\: 10m/g' /etc/metricbeat/metricbeat.yml
 #systemctl start filebeat
 chkconfig metricbeat on
