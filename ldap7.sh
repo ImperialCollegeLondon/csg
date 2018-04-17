@@ -1,4 +1,14 @@
 #!/bin/bash
+#!/bin/bash
+set -x
+set -e
+
+# Make sure only root can run our script
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
+fi
+
 echo For RHEL7 only!
 echo Installing LDAP and Kerberos clients
 yum install wget vim deltarpm git epel-release -y
