@@ -25,3 +25,5 @@ sudo mysql_secure_installation
 yum install php php-mysql -y
 systemctl restart httpd.service
 yum install php-fpm -y
+firewall-cmd --add-service=http --zone=public --permanent
+firewall-cmd --reload
