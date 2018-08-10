@@ -21,8 +21,17 @@ if [ ! -f /etc/redhat-release ]; then
 fi
 
 # Install Storage Manager (SSM)
-yum install system-storage-manager -y
+try {
+	yum install system-storage-manager -y
+} catch {
+	    echo "Could not install Storage Manager!"
+	    echo "Caught Exception:$(UI.Color.Red) $__BACKTRACE_COMMAND__ $(UI.Color.Default)"
+	    echo "File: $__BACKTRACE_SOURCE__, Line: $__BACKTRACE_LINE__"
 
+	    ## printing a caught exception couldn't be simpler, as it's stored in "${__EXCEPTION__[@]}"
+	    Exception::PrintException "${__EXCEPTION__[@]}"
+    }
+    
 # Show disk status
 ssm list
 
