@@ -29,7 +29,6 @@ EOF
 
 # Install telegraf
 try {
-
 yum install telegraf -y
 } catch { 	    
           echo "Could not install telegraf!"
