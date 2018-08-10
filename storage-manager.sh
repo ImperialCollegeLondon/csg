@@ -2,7 +2,11 @@
 #set -x
 #set -e
 source "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/lib/oo-bootstrap.sh"
+# load the type system
+import util/log util/exception util/tryCatch util/namedParameters
 
+# load the standard library for basic types and type the system
+import util/class
 
 # Make sure only root can run our script
 if [ "$(id -u)" != "0" ]; then
