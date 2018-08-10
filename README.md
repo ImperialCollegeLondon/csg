@@ -1,5 +1,5 @@
 # csg
-csg bootstrap scripts
+csg bootstrap scripts for CentOS 6 / 7.
 
 Bootstrap to setup LDAP logins, SSH, Puppet, Telegraf, Zabbix, Filebeat for ELK, Storage Manager, Nvidia Drivers, CUDA, Docker, Nvidia-Docker.
 
