@@ -1,6 +1,8 @@
-#!/bin/bash
-set -x
-set -e
+#!/usr/bin/env bash
+#set -x
+#set -e
+source "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/lib/oo-bootstrap.sh"
+
 
 # Make sure only root can run our script
 if [ "$(id -u)" != "0" ]; then
