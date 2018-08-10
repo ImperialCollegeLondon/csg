@@ -39,4 +39,4 @@ yum install telegraf -y
 	        Exception::PrintException "${__EXCEPTION__[@]}"
     }
 # startup   
-systemctl enable telegraf
+chkconfig telegraf on
