@@ -38,6 +38,7 @@ yum install telegraf -y
 	        ## printing a caught exception couldn't be simpler, as it's stored in "${__EXCEPTION__[@]}"
 	        Exception::PrintException "${__EXCEPTION__[@]}"
     }
+
 # startup 
 try {
 chkconfig telegraf on
