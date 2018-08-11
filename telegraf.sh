@@ -38,5 +38,14 @@ yum install telegraf -y
 	        ## printing a caught exception couldn't be simpler, as it's stored in "${__EXCEPTION__[@]}"
 	        Exception::PrintException "${__EXCEPTION__[@]}"
     }
-# startup   
+# startup 
+try {
 chkconfig telegraf on
+} catch {
+          echo "Could not enable telegraf on system startup"
+          echo "Caught Exception:$(UI.Color.Red) $__BACKTRACE_COMMAND__ $(UI.Color.Default)"
+	        echo "File: $__BACKTRACE_SOURCE__, Line: $__BACKTRACE_LINE__"
+
+	        ## printing a caught exception couldn't be simpler, as it's stored in "${__EXCEPTION__[@]}"
+	        Exception::PrintException "${__EXCEPTION__[@]}"
+    }
