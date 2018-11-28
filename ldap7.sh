@@ -23,19 +23,7 @@ rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.
 yum install man samba-client samba-common cifs-utils nfs-utils nfs-utils-lib epel-release wget ntp openldap-clients nss-pam-ldapd krb5-workstation pam_krb5 net-tools authconfig krb5-libs oddjob-mkhomedir pam_ldap sssd oddjob -y
 service nfs start
 service rpcbind start
-yum install fail2ban -y
-systemctl enable fail2ban
-cat <<EOT >> /etc/fail2ban/jail.local
-[DEFAULT]
-# Ban hosts for one hour:
-bantime = 3600
 
-# Override /etc/fail2ban/jail.d/00-firewalld.conf:
-banaction = iptables-multiport
-
-[sshd]
-enabled = true
-EOT
 
 yum update -y
 yum install pam_mount -y
