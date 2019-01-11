@@ -18,7 +18,8 @@ fi
 sysctl -w net.ipv6.conf.all.disable_ipv6=1
 sysctl -w net.ipv6.conf.default.disable_ipv6=1
 
-rpm -Uvh https://yum.puppet.com/puppet5/puppet5-release-el-7.noarch.rpm
+#rpm -Uvh https://yum.puppet.com/puppet5/puppet5-release-el-7.noarch.rpm
+rpm -Uvh https://yum.puppet.com/puppet6/puppet6-release-el-7.noarch.rpm
 yum install puppet-agent -y
 echo server=vm-puppet.doc.ic.ac.uk >> /etc/puppetlabs/puppet/puppet.conf
 systemctl enable puppet
