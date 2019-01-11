@@ -19,7 +19,7 @@ swapoff -a
 sed -i.bak '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
 # Configure FirewallD
-wget -p /etc/firewalld.services https://raw.githubusercontent.com/wrightrocket/k8s-firewalld/master/k8s-master.xml
+wget -P /etc/firewalld/services https://raw.githubusercontent.com/wrightrocket/k8s-firewalld/master/k8s-master.xml
 systemctl enable firewalld
 systemctl start firewalld
 firewall-cmd --reload
