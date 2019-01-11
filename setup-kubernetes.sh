@@ -14,6 +14,10 @@ if [ ! -f /etc/redhat-release ]; then
         exit
 fi
 
+# Swap must be off
+swapoff -a
+sed -i.bak '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+
 # Kubernetes Repo
 cat << EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
