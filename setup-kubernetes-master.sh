@@ -18,6 +18,14 @@ fi
 swapoff -a
 sed -i.bak '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
+# Configure FirewallD
+wget -p /etc/firewalld.services https://raw.githubusercontent.com/wrightrocket/k8s-firewalld/master/k8s-master.xml
+systemctl enable firewalld
+systemctl start firewalld
+firewall-cmd --reload
+firewall-cmd --add-service k8s-master --permanent
+firewall-cmd --reload
+
 # Kubernetes Repo
 cat << EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -29,16 +37,16 @@ repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 
-# SELinux
+# disable SELinux
 setenforce 0
 sed -i 's/enforcing/permissive/g' /etc/selinux/config /etc/selinux/config
 
-# Install
+# Install Kubernetes
 yum install -y kubelet kubeadm kubectl
 systemctl enable kubelet
 systemctl start kubelet
 
-# System settings 
+# Network forwarding 
 cat << EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
@@ -46,10 +54,26 @@ EOF
 sysctl --system
 
 # Run on master node only!
-#kubeadm init --pod-network-cidr=10.244.0.0/16
-#mkdir -p $HOME/.kube
-#cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-#chown $(id -u):$(id -g) $HOME/.kube/config
+kubeadm init --pod-network-cidr=10.244.0.0/16
+mkdir -p $HOME/.kube
+cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+chown $(id -u):$(id -g) $HOME/.kube/config
+
+# Verify node is ready
+kubectl get nodes
+echo please confirm
+pause
+
+# Verify kube-system pods are ready
+kubectl get pods --all-namespaces
+echo please confirm
+pause
 
 # Install Flannel networking
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
+
+# Retrieve setup token
+kubeadm token list
+
+# Master is ready
+echo Master is installed.
