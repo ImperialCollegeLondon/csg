@@ -39,7 +39,7 @@ EOF
 
 # disable SELinux
 setenforce 0
-sed -i 's/enforcing/permissive/g' /etc/selinux/config /etc/selinux/config
+sed -i 's/enforcing/permissive/g' /etc/selinux/config
 
 # Install Kubernetes
 yum install -y kubelet kubeadm kubectl
@@ -70,11 +70,24 @@ sysctl --system
 # Install Flannel networking
 #kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
 
-# Retrieve setup token
-#kubeadm token list
-
-# Master is ready
+# Node is ready
 echo Join node to cluster with token.
-echo kubeadm join --token <token> vm-k8s-01.doc.ic.ac.uk6443
+echo eg. kubeadm join --token <token> vm-k8s-01.doc.ic.ac.uk:6443
 echo on Kubernetes master use kubeadm token list to fetch token
 echo If there is no current token create one with kubeadm token create --ttl 3600
+read -p 'Token: ' token
+kubeadm join --token $token vm-k8s-01.doc.ic.ac.uk:6443
+
+#Configure flannel
+yum -y install flannel
+
+#The etcd prefix value in the file /etc/sysconfig/flanneld is not correct, so the flanneld will fail to start as it is not able to retrieve the prefix given. The value of FLANNEL_ETCD_PREFIX must changed to the following:
+sed -i 's|FLANNEL_ETCD_PREFIX="/atomic.io/network"|FLANNEL_ETCD_PREFIX="/coreos.com/network"|g' /etc/sysconfig/flanneld /etc/selinux/config
+
+#Enable and start flanneld
+systemctl enable flanneld --now
+
+#Configure kubectl for user
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
