@@ -83,12 +83,12 @@ kubeadm join --token $token vm-k8s-01.doc.ic.ac.uk:6443 --discovery-token-unsafe
 yum -y install flannel
 
 # The etcd prefix value in the file /etc/sysconfig/flanneld is not correct, so the flanneld will fail to start as it is not able to retrieve the prefix given. The value of FLANNEL_ETCD_PREFIX must changed to the following:
-sed -i 's|FLANNEL_ETCD_PREFIX="/atomic.io/network"|FLANNEL_ETCD_PREFIX="/coreos.com/network"|g' /etc/sysconfig/flanneld /etc/selinux/config
+sed -i 's|FLANNEL_ETCD_PREFIX="/atomic.io/network"|FLANNEL_ETCD_PREFIX="/coreos.com/network"|g' /etc/sysconfig/flanneld
 
-#Enable and start flanneld
+# Enable and start flanneld
 systemctl enable flanneld --now
 
-#Configure kubectl for user
+# Configure kubectl for user
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
