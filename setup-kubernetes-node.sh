@@ -72,16 +72,17 @@ sysctl --system
 
 # Node is ready
 echo Join node to cluster with token.
-echo eg. kubeadm join --token <token> vm-k8s-01.doc.ic.ac.uk:6443
+echo "eg. kubeadm join --token <token> vm-k8s-01.doc.ic.ac.uk:6443"
 echo on Kubernetes master use kubeadm token list to fetch token
 echo If there is no current token create one with kubeadm token create --ttl 3600
 read -p 'Token: ' token
-kubeadm join --token $token vm-k8s-01.doc.ic.ac.uk:6443
+# Ignoring CA Hashes verficaton for now #tofix
+kubeadm join --token $token vm-k8s-01.doc.ic.ac.uk:6443 --discovery-token-unsafe-skip-ca-verification
 
 #Configure flannel
 yum -y install flannel
 
-#The etcd prefix value in the file /etc/sysconfig/flanneld is not correct, so the flanneld will fail to start as it is not able to retrieve the prefix given. The value of FLANNEL_ETCD_PREFIX must changed to the following:
+# The etcd prefix value in the file /etc/sysconfig/flanneld is not correct, so the flanneld will fail to start as it is not able to retrieve the prefix given. The value of FLANNEL_ETCD_PREFIX must changed to the following:
 sed -i 's|FLANNEL_ETCD_PREFIX="/atomic.io/network"|FLANNEL_ETCD_PREFIX="/coreos.com/network"|g' /etc/sysconfig/flanneld /etc/selinux/config
 
 #Enable and start flanneld
