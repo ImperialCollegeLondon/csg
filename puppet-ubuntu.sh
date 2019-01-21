@@ -30,3 +30,5 @@ echo server=vm-puppet.doc.ic.ac.uk >> /etc/puppetlabs/puppet/puppet.conf
 
 # Start Puppet and enable on startup
 /opt/puppetlabs/bin/puppet resource service puppet ensure=running enable=true
+
+echo Puppet installed. Please sign the certificate on the puppet master to finish installation.
