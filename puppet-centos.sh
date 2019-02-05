@@ -15,8 +15,8 @@ if [ ! -f /etc/redhat-release ]; then
 fi
 
 # Disable IPV6 due to DNS problems
-sysctl -w net.ipv6.conf.all.disable_ipv6=1
-sysctl -w net.ipv6.conf.default.disable_ipv6=1
+#sysctl -w net.ipv6.conf.all.disable_ipv6=1
+#sysctl -w net.ipv6.conf.default.disable_ipv6=1
 
 #rpm -Uvh https://yum.puppet.com/puppet5/puppet5-release-el-7.noarch.rpm
 rpm -Uvh https://yum.puppet.com/puppet6/puppet6-release-el-7.noarch.rpm
