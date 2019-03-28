@@ -77,7 +77,7 @@ echo on Kubernetes master use kubeadm token list to fetch token
 echo If there is no current token create one with kubeadm token create --ttl 3600
 read -p 'Token: ' token
 # Ignoring CA Hashes verficaton for now #tofix
-kubeadm join --token $token vm-k8s-01.doc.ic.ac.uk:6443 --discovery-token-unsafe-skip-ca-verification
+kubeadm join --token $token vm-k8s-01.doc.ic.ac.uk:6443 --discovery-token-unsafe-skip-ca-verification --ignore-preflight-errors=all
 
 #Configure flannel
 yum -y install flannel
