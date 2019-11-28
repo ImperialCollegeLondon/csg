@@ -1,3 +1,4 @@
+#!/bin/bash
 yum install fail2ban -y
 systemctl enable fail2ban
 cat <<EOT >> /etc/fail2ban/jail.local
